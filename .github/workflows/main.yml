@@ -1,17 +1,13 @@
 name: CI-CD
-
 on:
-
   push:
     branches: ["main"]
   workflow_dispatch: 
   
 jobs:
-
   CI:
-  
     runs-on: ubuntu-latest
     steps:
       - uses: actions/ckeckout@v3
       - name: Docker Build Kube-News
-      run: echo "Docker Build KubeNews"
+        run: echo "Docker Build Kube-News"
