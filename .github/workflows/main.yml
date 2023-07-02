@@ -39,21 +39,21 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-      - name: Configuração do Kubectl
-        shell: bash
-        run: |
-          aws eks update-kubeconfig --name EKS-kube-News-App --region us-east-1
-          
       - name: Configuração Credenciais do Postgres
         shell: bash
         run: |
           sed -i "s/{{ DATABASE_USERNAME }}/${{ secrets.DB_USERNAME }}/g" ./k8s/kube-news-deploy-app-github.yaml
           sed -i "s/{{ DATABASE_PASSWORD }}/${{ secrets.DB_PASSWORD }}/g" ./k8s/kube-news-deploy-app-github.yaml
+          
+      - name: Configuração do Kubectl
+        shell: bash
+        run: |
+          aws eks update-kubeconfig --name eks-kube-news-app --region us-east-1
 
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
         with:
           manifests: |
-            k8s/kube-news-deploy-app.yaml
+            k8s/kube-news-deploy-app-github.yaml
           images: |
             rjsautomacao/kube-news-app:latest
