@@ -21,8 +21,8 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            rodrigototy/kube-news-app:v2
-            rodrigototy/kube-news-app:latest
+            rjsautomacao/kube-news-app:v${{ github.run_number }}
+            rjsautomacao/kube-news-app:latest
           
   CD:
     runs-on: ubuntu-latest
