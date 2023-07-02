@@ -48,6 +48,6 @@ jobs:
         uses: Azure/k8s-deploy@v4.9
         with:
           manifests: |
-            k8s/rjsautomacao/kube-news-app:latest
+            k8s/kube-news-deploy-app.yaml
           images: |
             rjsautomacao/kube-news-app:latest
