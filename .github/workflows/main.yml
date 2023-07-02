@@ -39,15 +39,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-      - name: Configuração do Kubectl
-        shell: bash
-        run: |
-          aws eks update-kubeconfig --name EKS-kube-News-App --region us-east-1
-          
       - name: Kubernetes Set Context
         uses: ossrs/k8s-set-context-action@v1
         with:
           kubeconfig: $HOME/.kube/config
+          
+      - name: Configuração do Kubectl
+        shell: bash
+        run: |
+          aws eks update-kubeconfig --name EKS-kube-News-App --region us-east-1
       
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
