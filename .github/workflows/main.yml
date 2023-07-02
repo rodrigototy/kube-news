@@ -50,11 +50,15 @@ jobs:
           sed -i "s/{{ DATABASE_USERNAME }}/${{ secrets.DB_USERNAME }}/g" ./k8s/kube-news-deploy-app-github.yaml
           sed -i "s/{{ DATABASE_PASSWORD }}/${{ secrets.DB_PASSWORD }}/g" ./k8s/kube-news-deploy-app-github.yaml
           
+      - name: Set Kubernetes Context
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: /
+          
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
         with:
           manifests: |
             k8s/kube-news-deploy-app.yaml
-            k8s/kube-news-secret.yaml
           images: |
             rjsautomacao/kube-news-app:latest
