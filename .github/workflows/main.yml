@@ -54,5 +54,6 @@ jobs:
         with:
           manifests: |
             k8s/kube-news-deploy-app.yaml
+            k8s/kube-news-secret.yaml
           images: |
             rjsautomacao/kube-news-app:latest
