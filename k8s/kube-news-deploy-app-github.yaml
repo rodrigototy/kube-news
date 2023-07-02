@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: kube-news-app
+spec: 
+  selector:
+    matchLabels:
+      app: kube-news-app
+  template:
+    metadata:
+      labels:
+        app: kube-news-app
+    spec: 
+      containers:
+        - name: kube-news-app
+          image: rjsautomacao/kube-news-app:latest
+          ports:
+          - containerPort: 8080
+            name: http
+            protocol: TCP
+          env: 
+          - name: DB_HOST
+            value: kube-news-postgres
+          - name: DB_DATABASE
+            value: db_kube_news
+          - name: DB_USERNAME
+            value: ${{ DATABASE_USERNAME }}
+          - name: DB_PASSWORD
+            value: ${{ DATABASE_PASSWORD }}
+          - name: WEB_SERVER_PORT
+            value: "8080"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kube-news-app
+spec: 
+  selector: 
+    app: kube-news-app
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
+      name: http
