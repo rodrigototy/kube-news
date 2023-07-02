@@ -29,5 +29,9 @@ jobs:
     needs: [CI]
     steps:
       - uses: actions/checkout@v3
-      - name: Deploy Kube-News
-        run: echo "Deploy Kube-News"
+      - name: Configure AWS Credentials For GitHub Actions
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS-ACCESS-KEY-ID }}
+          aws-secret-access-key: ${{ secrets.AWS-SECRET-ACCESS-KEY }}
+          aws-region: us-east-1
