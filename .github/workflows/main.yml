@@ -39,10 +39,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-      - name: Kubernetes Set Context
-        uses: ossrs/k8s-set-context-action@v1
-        with:
-          kubeconfig: $HOME/.kube/config
+      - name: Explicitly context KUBECONFIG env
+        shell: bash
+        run: |
+          export KUBECONFIG=
           
       - name: Configuração do Kubectl
         shell: bash
