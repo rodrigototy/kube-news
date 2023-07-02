@@ -24,9 +24,9 @@ spec:
           - name: DB_DATABASE
             value: db_kube_news
           - name: DB_USERNAME
-            value: ${{ DATABASE_USERNAME }}
+            value: {{ DATABASE_USERNAME }}
           - name: DB_PASSWORD
-            value: ${{ DATABASE_PASSWORD }}
+            value: {{ DATABASE_PASSWORD }}
           - name: WEB_SERVER_PORT
             value: "8080"
 ---
