@@ -13,7 +13,7 @@ jobs:
         uses: docker/build-push-action@v4.1.1
         with:
           context: ./src
-          file: ../Dockerfile
+          file: ./Dockerfile
           push: true
           tags: |
             rodrigototy/kube-news-app:v2
