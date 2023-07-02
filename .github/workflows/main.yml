@@ -49,11 +49,6 @@ jobs:
         run: |
           sed -i "s/{{ DATABASE_USERNAME }}/${{ secrets.DB_USERNAME }}/g" ./k8s/kube-news-deploy-app-github.yaml
           sed -i "s/{{ DATABASE_PASSWORD }}/${{ secrets.DB_PASSWORD }}/g" ./k8s/kube-news-deploy-app-github.yaml
-      
-      - name: Kubernetes Deploy Login
-        uses: azure/k8s-deploy-login@v1
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG }}
 
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
