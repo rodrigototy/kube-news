@@ -61,4 +61,4 @@ jobs:
           manifests: |
             k8s/kube-news-deploy-app-github.yaml
           images: |
-            rjsautomacao/kube-news-app:latest
+            rjsautomacao/kube-news-app:v${{ github.run_number }}
