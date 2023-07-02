@@ -5,7 +5,7 @@ on:
   workflow_dispatch: 
 jobs:
   CI:
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/ckeckout@v3
       - name: Docker Build Kube-News
