@@ -43,6 +43,11 @@ jobs:
         shell: bash
         run: |
           aws eks update-kubeconfig --name EKS-kube-News-App --region us-east-1
+          
+      - name: Explicitly context KUBECONFIG env
+        shell: bash
+        run: |
+          export KUBECONFIG=/home/runner/.kube/config
       
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
