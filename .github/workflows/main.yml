@@ -53,11 +53,6 @@ jobs:
         shell: bash
         run: |
           aws eks update-kubeconfig --name eks-kube-news-app --region us-east-1
-
-      - name: Set Kubernetes Context
-        uses: azure/k8s-set-context@v1
-        with:
-          kubeconfig: /home/runner/.kube/config
           
       - name: Listar Cluster Nodes
         shell: bash
