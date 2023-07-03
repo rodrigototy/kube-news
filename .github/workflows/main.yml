@@ -39,10 +39,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-      - name: Configuração Credenciais do Postgres
+      - name: Configuração Postgres Username
         shell: bash
         run: |
           sed -i "s/{{ DATABASE_USERNAME }}/${{ secrets.DB_USERNAME }}/g" ./k8s/kube-news-deploy-app-github.yaml
+          
+      - name: Configuração Postgres Password
+        shell: bash
+        run: |
           sed -i "s/{{ DATABASE_PASSWORD }}/${{ secrets.DB_PASSWORD }}/g" ./k8s/kube-news-deploy-app-github.yaml
           
       - name: Configuração do Kubectl
@@ -54,6 +58,21 @@ jobs:
         uses: azure/k8s-set-context@v1
         with:
           kubeconfig: /home/runner/.kube/config
+          
+      - name: Teste 01
+        shell: bash
+        run: |
+          cat k8s/kube-news-deploy-app-github.yaml
+          
+      - name: Teste 02
+        shell: bash
+        run: |
+          printenv KUBECONFIG
+          
+      - name: Teste 03
+        shell: bash
+        run: |
+          cat /tmp/kube-news-deploy-app-github.yaml
 
       - name: Deploy to Kubernetes cluster
         uses: Azure/k8s-deploy@v4.9
