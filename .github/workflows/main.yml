@@ -59,25 +59,12 @@ jobs:
         with:
           kubeconfig: /home/runner/.kube/config
           
-      - name: Teste 01
+      - name: Listar Cluster Nodes
         shell: bash
         run: |
-          cat k8s/kube-news-deploy-app-github.yaml
+          kubectl get nodes
           
-      - name: Teste 02
-        shell: bash
-        run: |
-          printenv KUBECONFIG
-          
-      - name: Teste 03
-        shell: bash
-        run: |
-          cat /tmp/kube-news-deploy-app-github.yaml
-
       - name: Deploy to Kubernetes cluster
-        uses: Azure/k8s-deploy@v4.9
-        with:
-          manifests: |
-            k8s/kube-news-deploy-app-github.yaml
-          images: |
-            rjsautomacao/kube-news-app:v${{ github.run_number }}
+        shell: bash
+        run: |
+          kubectl apply -f k8s/kube-news-deploy-app-github.yaml
