@@ -53,23 +53,26 @@ jobs:
         shell: bash
         run: |
           aws eks update-kubeconfig --name eks-kube-news-app --region us-east-1
-          
-      - name: Explicitly context KUBECONFIG env
-        shell: bash
-        run: |
-          export KUBECONFIG=/home/runner/.kube/config
+
+      - name: Set Kubernetes Context
+        uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: /home/runner/.kube/config
           
       - name: Listar Cluster Nodes
         shell: bash
         run: |
           kubectl get nodes
-          
+
       - name: Deploy to Kubernetes cluster
-        shell: bash
-        run: |
-          kubectl apply -f k8s/kube-news-deploy-app-github.yaml
+        uses: Azure/k8s-deploy@v4.9
+        with:
+          manifests: |
+            k8s/kube-news-deploy-app-github.yaml
+          images: |
+            rjsautomacao/kube-news-app:v${{ github.run_number }}
           
-      - name: Listar Cluster Nodes
+      - name: Listar Cluster All Pods/Services
         shell: bash
         run: |
           kubectl get all
