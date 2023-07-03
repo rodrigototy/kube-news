@@ -59,11 +59,6 @@ jobs:
         run: |
           export KUBECONFIG=/home/runner/.kube/config
           
-      - name: Print KUBECONFIG env
-        shell: bash
-        run: |
-          printenv KUBECONFIG
-          
       - name: Listar Cluster Nodes
         shell: bash
         run: |
