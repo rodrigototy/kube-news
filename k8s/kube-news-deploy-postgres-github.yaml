@@ -25,9 +25,9 @@ spec:
             - name: POSTGRES_PORT
               value: "5432"
             - name: POSTGRES_USER
-              value: ${{ DATABASE_USERNAME }}
+              value: {{ DATABASE_USERNAME }}
             - name: POSTGRES_PASSWORD
-              value: ${{ DATABASE_PASSWORD }}
+              value: {{ DATABASE_PASSWORD }}
 ---
 apiVersion: v1
 kind: Service
