@@ -39,15 +39,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
           
-      - name: Configuração Postgres Username
+      - name: Configuração Postgres Username/Password
         shell: bash
         run: |
           sed -i "s/{{ DATABASE_USERNAME }}/${{ secrets.DB_USERNAME }}/g" ./k8s/kube-news-deploy-app-github.yaml
-          
-      - name: Configuração Postgres Password
-        shell: bash
-        run: |
           sed -i "s/{{ DATABASE_PASSWORD }}/${{ secrets.DB_PASSWORD }}/g" ./k8s/kube-news-deploy-app-github.yaml
+          sed -i "s/{{ DATABASE_USERNAME }}/${{ secrets.DB_USERNAME }}/g" ./k8s/kube-news-deploy-postgres-github.yaml
+          sed -i "s/{{ DATABASE_PASSWORD }}/${{ secrets.DB_PASSWORD }}/g" ./k8s/kube-news-deploy-postgres-github.yaml
           
       - name: Configuração do Kubectl
         shell: bash
@@ -63,8 +61,10 @@ jobs:
         uses: Azure/k8s-deploy@v4.9
         with:
           manifests: |
+            k8s/kube-news-deploy-postgres-github.yaml
             k8s/kube-news-deploy-app-github.yaml
           images: |
+            postgres
             rjsautomacao/kube-news-app:v${{ github.run_number }}
           
       - name: Listar Cluster All Pods/Services
